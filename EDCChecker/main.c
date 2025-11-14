@@ -14,11 +14,11 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
-#include <unistd.h>
 
 // PlayStation 1 game discs use CD-ROM XA Mode 2, either Form 1 or Form 2 structure with 2352 bytes per sector
 #define SECTOR_SIZE 2352
@@ -117,22 +117,24 @@ int main(int argc, char** argv)
 {
 	bool isVerbose = false;
 
-	int opt;
-	while ((opt = getopt(argc, argv, "v")) != -1) {
-		switch (opt) {
-		case 'v':
+	const char* fileName = NULL;
+	for (size_t i = 1; i < argc; ++i) {
+		if (!strncmp(argv[i], "-v", 2)) {
 			isVerbose = true;
-			break;
+		}
+		else {
+			fileName = argv[i];
 		}
 	}
-	if (optind >= argc) {
-		printf("Usage: %s (-v for verbose output) <cd_image.bin>\n", argv[0]);
+
+	if (fileName == NULL) {
+		printf("Usage: %s [-v for verbose output] <cd_image.bin>\n", argv[0]);
 		return 1;
 	}
 
-	FILE* file = fopen(argv[optind], "rb");
+	FILE* file = fopen(fileName, "rb");
 	if (!file) {
-		printf("Error opening file '%s'\n", argv[1]);
+		printf("Error opening file '%s'\n", fileName);
 		return 1;
 	}
 	CRCTableInit();

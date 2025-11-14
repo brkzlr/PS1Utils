@@ -1,3 +1,19 @@
-# Ignore everything but main.c
 *
-!main.c
+!.gitignore
+!LICENSE
+!README.md
+!EDCChecker
+!EDCChecker/README.md
+!EDCChecker/main.c
+!EDCChecker/CMakeLists.txt
+!SaveConverter
+!SaveConverter/README.md
+!SaveConverter/CMakeLists.txt
+!SaveConverter/src
+!SaveConverter/src/main.c
+!SaveConverter/src/aes.c
+!SaveConverter/src/sha1.c
+!SaveConverter/include
+!SaveConverter/include/aes.h
+!SaveConverter/include/sha1.h
+!CMakeLists.txt
