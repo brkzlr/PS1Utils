@@ -75,10 +75,10 @@ static inline uint32_t GetSectorNumber(SectorAddress_t* sectAddr)
 {
 	// Address is stored as MSB (Minute:Second:Block) with decimal values (BCD)
 	// 75 consecutive sectors (blocks) in a CD-ROM second
+	const uint32_t cSectAddr = (DecodeBCD(sectAddr->minutes) * 60 + DecodeBCD(sectAddr->seconds)) * 75 + DecodeBCD(sectAddr->sector);
 
 	// Ignore the first 2 seconds which is the pre-gap of any track
-	uint8_t seconds = DecodeBCD(sectAddr->seconds) - 2;
-	return (DecodeBCD(sectAddr->minutes) * 60 + seconds) * 75 + DecodeBCD(sectAddr->sector);
+	return cSectAddr - 2 * 75;
 }
 
 // Precompute CD-ROM XA CRC32 values to speed things up
